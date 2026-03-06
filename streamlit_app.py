@@ -52,7 +52,7 @@ if st.button("Сохранить и запустить"):
             role=a1_role, 
             goal=a1_goal, 
             backstory=a1_backstory, 
-            llm=model_name,
+            llm=llm,
             verbose=True,
             allow_delegation=False
         )
@@ -61,7 +61,7 @@ if st.button("Сохранить и запустить"):
             role=a2_role, 
             goal=a2_goal, 
             backstory=a2_backstory, 
-            llm=model_name,
+            llm=llm,
             verbose=True,
             allow_delegation=False
         )
