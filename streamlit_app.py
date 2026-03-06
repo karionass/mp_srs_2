@@ -17,7 +17,7 @@ llm = LLM(
 
 st.title("Локализация и адаптация учебного видеоконтента")
 
-with st.expander("Настройка Агентов и Задач"):
+with st.expander("Конфигурация агентов"):
     col1, col2 = st.columns(2)
 
     with col1:
@@ -28,7 +28,7 @@ with st.expander("Настройка Агентов и Задач"):
         t1_desc = st.text_area("Task Description 1", "Перевести текст лекции на русский.")
 
     with col2:
-        st.subheader("Агент 2: Редактор")
+        st.subheader("Агент 2: Глоссарий")
         a2_role = st.text_input("Role 2", "Эксперт по глоссарию")
         a2_goal = st.text_input("Goal 2", "Проверять терминологию")
         a2_backstory = st.text_area("Backstory 2", "Специалист по терминологии и глоссариям.")
@@ -37,12 +37,12 @@ with st.expander("Настройка Агентов и Задач"):
 st.divider()
 st.subheader("Ввод данных для обработки")
 
-transcript_input = st.text_area("Вставьте транскрипцию (English):", height=150)
+transcript_input = st.text_area("Вставьте транскрипцию:", height=150)
 glossary_input = st.text_area("Вставьте глоссарий (Термин - Перевод):", height=100)
 
-if st.button("Сохранить и запустить"):
+if st.button("Запуск"):
     if not transcript_input or not glossary_input:
-        st.error("Пожалуйста, заполните все поля.")
+        st.error("Заполните все поля.")
     else:
         translator_agent = Agent(
             role=a1_role,
