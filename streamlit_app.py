@@ -13,7 +13,7 @@ else:
     st.stop()
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-3-flash-preview",
+    model_name="gemini/gemini-3-flash-preview",
     verbose=True,
     temperature=0.5,
     google_api_key=api_key
@@ -49,12 +49,21 @@ if st.button("Сохранить и запустить"):
         st.error("Пожалуйста, заполните все поля.")
     else:
         translator_agent = Agent(
-            role=a1_role, goal=a1_goal, backstory=a1_backstory, 
-            llm=llm, verbose=True
+            role=a1_role, 
+            goal=a1_goal, 
+            backstory=a1_backstory, 
+            llm=model_name,
+            verbose=True,
+            allow_delegation=False
         )
+        
         editor_agent = Agent(
-            role=a2_role, goal=a2_goal, backstory=a2_backstory, 
-            llm=llm, verbose=True
+            role=a2_role, 
+            goal=a2_goal, 
+            backstory=a2_backstory, 
+            llm=model_name,
+            verbose=True,
+            allow_delegation=False
         )
 
         task1 = Task(
