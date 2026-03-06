@@ -13,7 +13,7 @@ else:
     st.stop()
 
 llm = ChatGoogleGenerativeAI(
-    model_name="gemini/gemini-3-flash-preview",
+    model="gemini/gemini-3-flash-preview",
     verbose=True,
     temperature=0.5,
     google_api_key=api_key
