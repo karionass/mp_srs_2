@@ -39,7 +39,7 @@ with st.expander("Настройка Агентов и Задач"):
 
 
 st.divider()
-st.subheader("📥 Ввод данных для обработки")
+st.subheader("Ввод данных для обработки")
 transcript_input = st.text_area("Вставьте транскрипцию (English):", height=150)
 glossary_input = st.text_area("Вставьте глоссарий (Термин - Перевод):", height=100)
 
