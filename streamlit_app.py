@@ -1,7 +1,7 @@
 import os
 import streamlit as st
-from crewai import Agent, Process, Task, Crew
-from langchain_google_genai import ChatGoogleGenerativeAI
+from crewai import LLM, Agent, Process, Task, Crew
+from crewai import LLM
 
 st.set_page_config(page_title="Локализация видеоконтента", layout="wide")
 
@@ -12,11 +12,9 @@ else:
     st.error("Ключ GOOGLE_API_KEY не найден в Secrets!")
     st.stop()
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini/gemini-3-flash-preview",
-    verbose=True,
-    temperature=0.5,
-    google_api_key=api_key
+llm = LLM(
+    model="gemini/gemini-1.5-flash",
+    temperature=0.5
 )
 
 st.title("Локализация и адаптация учебного видеоконтента")
