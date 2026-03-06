@@ -10,17 +10,17 @@ with st.expander("Настройка Агентов и Задач"):
     
     with col1:
         st.subheader("Агент 1: Переводчик")
-        a1_role = st.text_input("Role", "Senior Translator")
-        a1_goal = st.text_input("Goal", "Translate English lecture to Russian")
-        a1_backstory = st.text_area("Backstory", "Expert in educational linguistics.")
-        t1_desc = st.text_area("Описание задачи 1", "Translate the transcript into academic Russian.")
+        a1_role = st.text_input("Role", "Специалист по академическому переводу")
+        a1_goal = st.text_input("Goal", "Переводить учебные материалы с сохранением академической точности")
+        a1_backstory = st.text_area("Backstory", "Эксперт в области образовательной лингвистики.")
+        t1_desc = st.text_area("Описание задачи 1", "Переводить транскрипцию с английского на академический русский.")
 
     with col2:
         st.subheader("Агент 2: Редактор")
-        a2_role = st.text_input("Role", "Glossary Editor")
-        a2_goal = st.text_input("Goal", "Check terminology against the glossary")
-        a2_backstory = st.text_area("Backstory", "Strict university terminology expert.")
-        t2_desc = st.text_area("Описание задачи 2", "Review translation and apply glossary terms.")
+        a2_role = st.text_input("Role", "Эксперт по глоссарию")
+        a2_goal = st.text_input("Goal", "Проверять терминологию по глоссарию")
+        a2_backstory = st.text_area("Backstory", "Строгий эксперт по университетской терминологии.")
+        t2_desc = st.text_area("Описание задачи 2", "Проверять перевод и применять термины из глоссария.")
 
 
 
@@ -32,7 +32,7 @@ glossary_input = st.text_area("Вставьте глоссарий (Термин
 
 if st.button("Сохранить и запустить"):
     if not transcript_input or not glossary_input:
-        st.error("Пожалуйста, заполните все поля ввода!")
+        st.error("Пожалуйста, заполните все поля перед запуском.")
     else:
         translator = Agent(
             role=a1_role, goal=a1_goal, backstory=a1_backstory, verbose=True
@@ -44,12 +44,12 @@ if st.button("Сохранить и запустить"):
         task1 = Task(
             description=f"{t1_desc}\n\nТекст: {transcript_input}",
             agent=translator,
-            expected_output="A clean Russian translation."
+            expected_output="Перевод транскрипции на академический русский язык."
         )
         task2 = Task(
             description=f"{t2_desc}\n\nГлоссарий: {glossary_input}",
             agent=editor,
-            expected_output="Final Russian text with correct terminology."
+            expected_output="Финальный русский текст с правильной терминологией."
         )
 
         crew = Crew(
