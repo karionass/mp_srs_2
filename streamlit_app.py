@@ -1,5 +1,19 @@
+import os
 import streamlit as st
-from crewai import Agent, Task, Crew, Process
+from crewai import Agent, Process, Task, Crew
+from langchain_google_genai import ChatGoogleGenerativeAI # Импортируем Gemini
+
+if 'GOOGLE_API_KEY' in st.secrets:
+    os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+else:
+    st.error("Ключ GOOGLE_API_KEY не найден!")
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-3-flash-preview",
+    verbose=True,
+    temperature=0.5,
+    google_api_key=st.secrets["GOOGLE_API_KEY"]
+)
 
 st.set_page_config(page_title="Локализация видеоконтента", layout="wide")
 
@@ -22,7 +36,21 @@ with st.expander("Настройка Агентов и Задач"):
         a2_backstory = st.text_area("Backstory", "Строгий эксперт по университетской терминологии.")
         t2_desc = st.text_area("Описание задачи 2", "Проверять перевод и применять термины из глоссария.")
 
+        translator = Agent(
+            role=a1_role,
+            goal=a1_goal,
+            backstory=a1_backstory,
+            llm=llm,
+            verbose=True
+        )
 
+        editor = Agent(
+            role=a2_role,
+            goal=a2_goal,
+            backstory=a2_backstory,
+            llm=llm,
+            verbose=True
+        )
 
 st.divider()
 st.subheader("Ввод данных для обработки")
@@ -58,7 +86,7 @@ if st.button("Сохранить и запустить"):
             process=Process.sequential
         )
 
-        with st.spinner("Агенты работают над вашим текстом..."):
+        with st.spinner("Агенты работают..."):
             result = crew.kickoff()
         
         st.divider()
